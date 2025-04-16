@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = $_POST['gender'];
     $email = $_POST['email'];
 
-    $conn->query("INSERT INTO pasien (nama, alamat, tmp_lahir, tgl_lahir, gender, email, kelurahan_id,) 
+    $conn->query("INSERT INTO pasien (nama, alamat, tmp_lahir, tgl_lahir, gender, email) 
     VALUES ('$nama', '$alamat', '$tmp_lahir', '$tgl_lahir', '$gender', '$email')");
     header("Location: index.php");
 }
