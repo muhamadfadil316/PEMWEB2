@@ -10,10 +10,11 @@
   <div class="container mx-auto">
     <h1 class="text-2xl font-bold mb-4">Daftar Kelurahan</h1>
     <a href="create.php" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Tambah Kelurahan</a>
-    <table class="w-full bg-white rounded shadow">
+    <table class="w-150 bg-white rounded shadow">
       <thead class="bg-gray-200">
         <tr>
           <th class="p-2">Nomor</th>
+          <th class="p-2">Kode</th>
           <th class="p-2">Nama Kelurahan</th>
           <th class="p-2">Aksi</th>
         </tr>

@@ -1,21 +1,18 @@
 <?php
 include 'db.php';
+
 $id = $_GET['id'];
-$data = $conn->query("SELECT * FROM paramedik WHERE id = $id")->fetch_assoc();
+$result = $conn->query("SELECT * FROM paramedik WHERE id = $id");
+$data = $result->fetch_assoc();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $kode = $_POST['kode'];
-  $nama = $_POST['nama'];
-  $gender = $_POST['gender'];
-  $tmp_lahir = $_POST['tmp_lahir'];
-  $tgl_lahir = $_POST['tgl_lahir'];
-  $kategori = $_POST['kategori'];
-  $telpon = $_POST['telpon'];
-  $alamat = $_POST['alamat'];
+$unitKerja = $conn->query("SELECT * FROM unit_kerja");
 
-    $conn->query("UPDATE paramedik SET kode='$kode', nama='$nama', gender='$gender', tmp_lahir='$tmp_lahir',
-    tgl_lahir='$tgl_lahir', kategori='$kategori', telpon='$telpon', alamat='$alamat' WHERE id=$id");
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $stmt = $conn->prepare("UPDATE paramedik SET kode=?, nama=?, gender=?, tmp_lahir=?, tgl_lahir=?, kategori=?, telpon=?, alamat=?, unit_kerja_id=? WHERE id=?");
+    $stmt->bind_param("ssssssssii", $_POST['kode'], $_POST['nama'], $_POST['gender'], $_POST['tmp_lahir'], $_POST['tgl_lahir'], $_POST['kategori'], $_POST['telpon'], $_POST['alamat'], $_POST['unit_kerja_id'], $id);
+    $stmt->execute();
     header("Location: index.php");
+    exit;
 }
 ?>
 
@@ -26,19 +23,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <title>Edit Paramedik</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-6">
-  <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
-    <h2 class="text-xl font-bold mb-4">Edit Paramedik</h2>
-    <form method="POST">
-      <input type="text" name="kode" value="<?= $data['kode'] ?>" required class="w-full border p-2 mb-4 rounded" placeholder="Nomor">
-      <input type="text" name="nama" value="<?= $data['nama'] ?>" required class="w-full border p-2 mb-4 rounded" placeholder="Nama">
-      <input type="text" name="gender" value="<?= $data['gender'] ?>" required class="w-full border p-2 mb-4 rounded" placeholder="Gender">
-      <input type="text" name="tmp_lahir" value="<?= $data['tmp_lahir'] ?>" required class="w-full border p-2 mb-4 rounded" placeholder="Tempat Lahir">
-      <input type="text" name="tgl_lahir" value="<?= $data['tgl_lahir'] ?>" required class="w-full border p-2 mb-4 rounded" placeholder="Tanggal Lahir">
-      <input type="text" name="kategori" value="<?= $data['kategori'] ?>" required class="w-full border p-2 mb-4 rounded" placeholder="Kategori">
-      <input type="text" name="telpon" value="<?= $data['telpon'] ?>" required class="w-full border p-2 mb-4 rounded" placeholder="Telepon">
-      <input type="text" name="alamat" value="<?= $data['alamat'] ?>" required class="w-full border p-2 mb-4 rounded" placeholder="Alamat">
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+    <h2 class="text-2xl font-bold mb-6 text-center">Edit Data Paramedik</h2>
+    <form method="POST" class="space-y-4">
+      <input name="kode" class="w-full border p-2 rounded" value="<?= $data['kode'] ?>" required>
+      <input name="nama" class="w-full border p-2 rounded" value="<?= $data['nama'] ?>" required>
+      <select name="gender" class="w-full border p-2 rounded" required>
+        <option value="L" <?= $data['gender'] == 'L' ? 'selected' : '' ?>>Laki-laki</option>
+        <option value="P" <?= $data['gender'] == 'P' ? 'selected' : '' ?>>Perempuan</option>
+      </select>
+      <div class="flex gap-4">
+        <input name="tmp_lahir" class="w-1/2 border p-2 rounded" value="<?= $data['tmp_lahir'] ?>" required>
+        <input type="date" name="tgl_lahir" class="w-1/2 border p-2 rounded" value="<?= $data['tgl_lahir'] ?>" required>
+      </div>
+      <input name="kategori" class="w-full border p-2 rounded" value="<?= $data['kategori'] ?>" required>
+      <input name="telpon" class="w-full border p-2 rounded" value="<?= $data['telpon'] ?>" required>
+      <textarea name="alamat" class="w-full border p-2 rounded" required><?= $data['alamat'] ?></textarea>
+      <select name="unit_kerja_id" class="w-full border p-2 rounded" required>
+        <?php while ($uk = $unitKerja->fetch_assoc()): ?>
+          <option value="<?= $uk['id'] ?>" <?= $uk['id'] == $data['unit_kerja_id'] ? 'selected' : '' ?>>
+            <?= $uk['nama'] ?>
+          </option>
+        <?php endwhile; ?>
+      </select>
+      <div class="flex justify-between">
+        <a href="index.php" class="text-gray-600 hover:underline">← Kembali</a>
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Update</button>
+      </div>
     </form>
   </div>
 </body>

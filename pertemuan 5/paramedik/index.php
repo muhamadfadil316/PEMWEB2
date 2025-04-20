@@ -16,18 +16,20 @@
           <th class="p-2">No</th>
           <th class="p-2">Kode</th>
           <th class="p-2">Nama</th>
-          <th class="p-2">Gerder</th>
+          <th class="p-2">Gender</th>
           <th class="p-2">Tempat Lahir</th>
           <th class="p-2">Tanggal Lahir</th>
           <th class="p-2">Kategori</th>
           <th class="p-2">Telepon</th>
           <th class="p-2">Alamat</th>
+          <th class="p-2">Unit Kerja</th>
           <th class="p-2">Aksi</th>
         </tr>
       </thead>
       <tbody>
         <?php
-        $result = $conn->query("SELECT * FROM paramedik");
+        $sql = "SELECT p.*, u.nama as nama_unit FROM paramedik p LEFT JOIN unit_kerja u ON p.unit_kerja_id = u.id";
+        $result = $conn->query($sql);
         $no = 1;
         while($row = $result->fetch_assoc()):
         ?>
@@ -41,6 +43,7 @@
           <td class="p-2"><?= $row['kategori'] ?></td>
           <td class="p-2"><?= $row['telpon'] ?></td>
           <td class="p-2"><?= $row['alamat'] ?></td>
+          <td class="p-2"><?= $row['nama_unit'] ?? '-' ?></td>
           <td class="p-2">
             <a href="edit.php?id=<?= $row['id'] ?>" class="text-blue-600">Edit</a> |
             <a href="delete.php?id=<?= $row['id'] ?>" class="text-red-600" onclick="return confirm('Yakin ingin hapus?')">Hapus</a>
