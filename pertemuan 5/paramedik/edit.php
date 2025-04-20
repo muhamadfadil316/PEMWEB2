@@ -23,33 +23,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <title>Edit Paramedik</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
-    <h2 class="text-2xl font-bold mb-6 text-center">Edit Data Paramedik</h2>
-    <form method="POST" class="space-y-4">
-      <input name="kode" class="w-full border p-2 rounded" value="<?= $data['kode'] ?>" required>
-      <input name="nama" class="w-full border p-2 rounded" value="<?= $data['nama'] ?>" required>
-      <select name="gender" class="w-full border p-2 rounded" required>
-        <option value="L" <?= $data['gender'] == 'L' ? 'selected' : '' ?>>Laki-laki</option>
-        <option value="P" <?= $data['gender'] == 'P' ? 'selected' : '' ?>>Perempuan</option>
-      </select>
-      <div class="flex gap-4">
-        <input name="tmp_lahir" class="w-1/2 border p-2 rounded" value="<?= $data['tmp_lahir'] ?>" required>
-        <input type="date" name="tgl_lahir" class="w-1/2 border p-2 rounded" value="<?= $data['tgl_lahir'] ?>" required>
+<body class="bg-gradient-to-br from-yellow-100 to-green-100 min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl">
+    <h2 class="text-3xl font-bold text-center text-gray-700 mb-8">📝 Edit Data Paramedik</h2>
+
+    <form method="POST" class="space-y-5">
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Kode</label>
+        <input name="kode" value="<?= $data['kode'] ?>" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
       </div>
-      <input name="kategori" class="w-full border p-2 rounded" value="<?= $data['kategori'] ?>" required>
-      <input name="telpon" class="w-full border p-2 rounded" value="<?= $data['telpon'] ?>" required>
-      <textarea name="alamat" class="w-full border p-2 rounded" required><?= $data['alamat'] ?></textarea>
-      <select name="unit_kerja_id" class="w-full border p-2 rounded" required>
-        <?php while ($uk = $unitKerja->fetch_assoc()): ?>
-          <option value="<?= $uk['id'] ?>" <?= $uk['id'] == $data['unit_kerja_id'] ? 'selected' : '' ?>>
-            <?= $uk['nama'] ?>
-          </option>
-        <?php endwhile; ?>
-      </select>
-      <div class="flex justify-between">
-        <a href="index.php" class="text-gray-600 hover:underline">← Kembali</a>
-        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Update</button>
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Nama</label>
+        <input name="nama" value="<?= $data['nama'] ?>" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
+      </div>
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Gender</label>
+        <select name="gender" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
+          <option value="L" <?= $data['gender'] == 'L' ? 'selected' : '' ?>>Laki-laki</option>
+          <option value="P" <?= $data['gender'] == 'P' ? 'selected' : '' ?>>Perempuan</option>
+        </select>
+      </div>
+      <div class="flex gap-4">
+        <div class="w-1/2">
+          <label class="block font-semibold text-gray-700 mb-1">Tempat Lahir</label>
+          <input name="tmp_lahir" value="<?= $data['tmp_lahir'] ?>" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
+        </div>
+        <div class="w-1/2">
+          <label class="block font-semibold text-gray-700 mb-1">Tanggal Lahir</label>
+          <input type="date" name="tgl_lahir" value="<?= $data['tgl_lahir'] ?>" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
+        </div>
+      </div>
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Kategori</label>
+        <input name="kategori" value="<?= $data['kategori'] ?>" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
+      </div>
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Telepon</label>
+        <input name="telpon" value="<?= $data['telpon'] ?>" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
+      </div>
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Alamat</label>
+        <textarea name="alamat" rows="3" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400" required><?= $data['alamat'] ?></textarea>
+      </div>
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Unit Kerja</label>
+        <select name="unit_kerja_id" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
+          <?php while ($uk = $unitKerja->fetch_assoc()): ?>
+            <option value="<?= $uk['id'] ?>" <?= $uk['id'] == $data['unit_kerja_id'] ? 'selected' : '' ?>>
+              <?= $uk['nama'] ?>
+            </option>
+          <?php endwhile; ?>
+        </select>
+      </div>
+      <div class="flex justify-between items-center mt-6">
+        <a href="index.php" class="text-green-600 hover:underline font-medium">
+          ← Kembali
+        </a>
+        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold shadow-md transition duration-200">
+          Update
+        </button>
       </div>
     </form>
   </div>

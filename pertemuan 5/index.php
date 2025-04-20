@@ -44,7 +44,7 @@
       </a>
     </div>
 
-    <p class="text-center text-sm text-gray-400">&copy; <?= date('Y') ?> Sistem Informasi Puskesmas</p>
+    <p class="text-center text-sm text-gray-400">&copy; <?= date('Y') ?> Sistem Informasi Puskesmas Muhamad Fadil</p>
   </div>
 </body>
 </html>
