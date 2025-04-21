@@ -10,9 +10,14 @@
 <body class="bg-gray-100 p-6">
   <div class="container mx-auto">
     <h1 class="text-3xl font-semibold mb-6 text-center text-blue-600">Daftar Pasien</h1>
-    <a href="create.php" class="bg-blue-600 text-white px-6 py-2 rounded-lg mb-6 inline-block hover:bg-blue-700 transition duration-300">
-      <i class="fas fa-plus-circle"></i> Tambah Pasien
-    </a>
+    <div class="mb-6 flex flex-wrap gap-4">
+  <a href="javascript:history.back()" class="bg-gray-400 text-white px-6 py-2 rounded-lg hover:bg-gray-500 transition duration-300">
+    <i class="fas fa-arrow-left"></i> Kembali
+  </a>
+  <a href="create.php" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+    <i class="fas fa-plus-circle"></i> Tambah Pasien
+  </a>
+</div>
     <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
       <table class="w-full table-auto text-sm">
         <thead class="bg-blue-500 text-white">

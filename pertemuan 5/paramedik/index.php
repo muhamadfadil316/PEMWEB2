@@ -11,11 +11,23 @@
   <div class="container mx-auto">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-extrabold text-gray-700 tracking-wide">🧑‍⚕️ Data Paramedik</h1>
-      <a href="create.php" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow transition-all duration-300">
-        + Tambah Paramedik
-      </a>
-    </div>
+  <!-- Judul -->
+  <h1 class="text-3xl font-extrabold text-gray-700 tracking-wide">🧑‍⚕️ Data Paramedik</h1>
+
+  <!-- Tombol Aksi -->
+  <div class="flex space-x-4">
+    <!-- Tombol Kembali -->
+    <a href="javascript:history.back()" class="bg-gray-400 text-white px-6 py-2 rounded-lg hover:bg-gray-500 transition duration-300">
+      <i class="fas fa-arrow-left"></i> Kembali
+    </a>
+    
+    <!-- Tombol Tambah -->
+    <a href="create.php" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow transition-all duration-300">
+      + Tambah Paramedik
+    </a>
+  </div>
+</div>
+
 
     <!-- Table -->
     <div class="overflow-x-auto rounded-xl shadow-lg border border-gray-200 bg-white">
