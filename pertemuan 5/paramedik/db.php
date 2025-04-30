@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$dbname = "dbpuskesmas";
+$dbname = "dbproyek_individu";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 
